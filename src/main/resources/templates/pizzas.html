@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <table th:if="${pizzas.size() != 0}">
+        <tr>
+            <th>Pizza</th>
+            <th>Price</th>
+            <th>Description</th>
+        </tr>
+        <tr th:each="pizza, iterStat : ${pizzas}"  th:object="${pizza}">
+            <td>[[pizza.name]]</td>
+            <td>[[pizza.price]]$</td>
+            <td>[[pizza.description]]</td>
+        </tr>
+    </table>
+    <p th:if="${pizzas.size() == 0}>Niente pizze disponibili mi dispiace</p>
+</body>
+</html>

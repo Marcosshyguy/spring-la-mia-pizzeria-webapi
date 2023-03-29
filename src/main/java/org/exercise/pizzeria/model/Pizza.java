@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Pizza {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int pizza_id;
+    private int pizzaId;
 
     private String name;
 
@@ -15,12 +15,12 @@ public class Pizza {
 
     private Double price;
 
-    public int getPizza_id() {
-        return pizza_id;
+    public int getPizzaId() {
+        return pizzaId;
     }
 
-    public void setPizza_id(int pizza_id) {
-        this.pizza_id = pizza_id;
+    public void setPizzaId(int pizzaId) {
+        this.pizzaId = pizzaId;
     }
 
     public String getName() {
