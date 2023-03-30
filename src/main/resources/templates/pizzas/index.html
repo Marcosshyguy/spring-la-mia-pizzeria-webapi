@@ -22,12 +22,12 @@
             <th scope="col">Action</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="table-group-divider">
         <tr th:each="pizza : ${pizzas}">
-            <td th:text="${pizza.name}"></td>
-            <td th:text="|${pizza.price}$|"></td>
-            <td th:text="${pizza.description}"></td>
-            <td><a th:href="@{|pizzas/${pizza.pizzaId}|}">Show</a></td>
+            <td th:text="${pizza.name}" class="align-middle"></td>
+            <td th:text="|${pizza.price}$|" class="align-middle"></td>
+            <td th:text="${pizza.description}" class="align-middle"></td>
+            <td><a th:href="@{|pizzas/${pizza.pizzaId}|}" class="btn btn-success align-middle"><i class="fa-solid fa-pizza-slice"></i></a></td>
         </tr>
         </tbody>
     </table>
