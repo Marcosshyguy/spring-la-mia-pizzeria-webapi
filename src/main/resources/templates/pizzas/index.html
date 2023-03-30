@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -8,18 +8,18 @@
     <title>Document</title>
 </head>
 <body>
-    <table th:if="${pizzas.size() != 0}">
+    <table th:if="${pizzas.size() > 0}">
         <tr>
             <th>Pizza</th>
             <th>Price</th>
             <th>Description</th>
         </tr>
-        <tr th:each="pizza, iterStat : ${pizzas}"  th:object="${pizza}">
-            <td>[[pizza.name]]</td>
-            <td>[[pizza.price]]$</td>
-            <td>[[pizza.description]]</td>
+        <tr th:each="pizza : ${pizzas}">
+            <td th:text="${pizza.name}"></td>
+            <td th:text="|${pizza.price}$|">.</td>
+            <td th:text="${pizza.description}"></td>
         </tr>
     </table>
-    <p th:if="${pizzas.size() == 0}>Niente pizze disponibili mi dispiace</p>
+    <p th:if="${pizzas.size() == 0}">Niente pizze disponibili mi dispiace</p>
 </body>
 </html>
