@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -59,9 +60,11 @@ public class PizzaController{
     }
 
     @PostMapping("/create")
-    public String store(@Valid @ModelAttribute("pizza") Pizza formBookData){
-        Book newBook = new Book();
-
+    public String store(@Valid @ModelAttribute("pizza") Pizza formBookData, BindingResult bindingResult, Model model){
+        if(bindingResult.hasErrors()){
+            return "/pizzas/create";
+        }
+        pizzaRepository.save(formBookData);
         return "redirect:/pizzas";
     }
 

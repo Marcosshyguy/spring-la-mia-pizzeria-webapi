@@ -1,7 +1,7 @@
 package org.exercise.pizzeria.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 
@@ -14,10 +14,11 @@ public class Pizza {
     private String name;
 
     @Column(columnDefinition = "TEXT")
+    @NotBlank(message = "Campo vuoto")
     private String description;
-
-    private BigDecimal price;
-
+    @NotNull(message = "Campo vuoto")
+    private double price;
+    @NotBlank(message = "Campo vuoto")
     @Column(columnDefinition = "TEXT")
     private String image;
 
@@ -53,11 +54,11 @@ public class Pizza {
         this.description = description;
     }
 
-    public BigDecimal getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 }
