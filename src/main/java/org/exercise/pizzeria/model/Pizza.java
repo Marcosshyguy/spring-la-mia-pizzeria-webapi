@@ -1,6 +1,7 @@
 package org.exercise.pizzeria.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 
@@ -10,7 +11,6 @@ public class Pizza {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pizzaId;
-
     private String name;
 
     @Column(columnDefinition = "TEXT")

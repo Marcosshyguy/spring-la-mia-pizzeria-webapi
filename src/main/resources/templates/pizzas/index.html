@@ -27,12 +27,16 @@
             <td th:text="${pizza.name}" class="align-middle"></td>
             <td th:text="|${pizza.price}$|" class="align-middle"></td>
             <td th:text="${pizza.description}" class="align-middle"></td>
-            <td><a th:href="@{|pizzas/${pizza.pizzaId}|}" class="btn btn-success align-middle"><i class="fa-solid fa-pizza-slice"></i></a></td>
+            <td>
+                <a th:href="@{|pizzas/${pizza.pizzaId}|}" class="btn btn-success align-middle"><i class="fa-solid fa-pizza-slice"></i></a>
+            </td>
         </tr>
         </tbody>
     </table>
     <p th:if="${pizzas.size() == 0}">Niente pizze disponibili mi dispiace</p>
+    <a th:href="@{pizzas/create}" class="btn btn-success">Aggiungi +</a>
 </div>
+
 <script th:src="@{/webjars/bootstrap/5.2.3/js/bootstrap.min.js}"></script>
 </body>
 </html>

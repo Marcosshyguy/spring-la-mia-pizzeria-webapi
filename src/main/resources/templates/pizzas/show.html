@@ -15,11 +15,13 @@
     <!--<th:block th:unless="${#strings.isEmpty(pizza.name)}">-->
     <h2 th:text="|Ecco una bella ${pizza.name}|" class="text-center"></h2>
     <!--</th:block>-->
-    <img src="">
+    <div class="">
+        <img th:src="@{${pizza.image}}" class="rounded mx-auto d-block" >
+    </div>
 
         <p>Questa pizza in media viene [[${pizza.price}]]$</p>
         <p>[[${pizza.description}]]</p>
-
+<a class="btn btn-secondary" th:href="@{/pizzas}">Indietro</a>
 </div>
 </body>
 </html>
