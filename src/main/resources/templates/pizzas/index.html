@@ -13,7 +13,8 @@
 <body>
 <nav th:replace="~{pizzas/fragment :: navbar('pizzas', ${keyword}, true)}"></nav>
 <div class="container">
-    <table th:if="${pizzas.size() > 0}" class="table table-dark table-striped">
+    <a th:href="@{pizzas/create}" class="btn btn-success mt-3">Aggiungi +</a>
+    <table th:if="${pizzas.size() > 0}" class="table table-dark table-striped mt-3">
         <thead>
         <tr>
             <th scope="col">Pizza</th>
@@ -27,14 +28,19 @@
             <td th:text="${pizza.name}" class="align-middle"></td>
             <td th:text="|${pizza.price}$|" class="align-middle"></td>
             <td th:text="${pizza.description}" class="align-middle"></td>
+            <!-- actions -->
             <td>
                 <a th:href="@{|pizzas/${pizza.pizzaId}|}" class="btn btn-success align-middle"><i class="fa-solid fa-pizza-slice"></i></a>
+                <a th:href="@{|pizzas/edit/${pizza.pizzaId}|}" class="btn btn-secondary align-middle"><i class="fa-solid fa-pizza-slice"></i></a>
+                <!-- add delete button-->
+                <form id="delete-pizza" th:method="delete" th:action="@{/pizzas/delete/{id}(id=${pizza.pizzaId})}" class="d-inline">
+                    <button type="submit" th:value="${pizza.pizzaId}" class="btn btn-danger align-middle"><i class="fa-solid fa-pizza-slice"></i></button>
+                </form>
             </td>
         </tr>
         </tbody>
     </table>
     <p th:if="${pizzas.size() == 0}">Niente pizze disponibili mi dispiace</p>
-    <a th:href="@{pizzas/create}" class="btn btn-success">Aggiungi +</a>
 </div>
 
 <script th:src="@{/webjars/bootstrap/5.2.3/js/bootstrap.min.js}"></script>

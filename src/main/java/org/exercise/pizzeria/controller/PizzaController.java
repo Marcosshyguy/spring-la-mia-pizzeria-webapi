@@ -60,11 +60,41 @@ public class PizzaController{
     }
 
     @PostMapping("/create")
-    public String store(@Valid @ModelAttribute("pizza") Pizza formBookData, BindingResult bindingResult, Model model){
+    public String store(@Valid @ModelAttribute("pizza") Pizza formPizzaData, BindingResult bindingResult, Model model){
         if(bindingResult.hasErrors()){
             return "/pizzas/create";
         }
-        pizzaRepository.save(formBookData);
+        pizzaRepository.save(formPizzaData);
+        return "redirect:/pizzas";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") int id, Model model) {
+        Pizza result = pizzaRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid pizza Id:" + id));
+        model.addAttribute("pizza", result);
+        return "pizzas/edit";
+    }
+
+    @PutMapping("/edit/{id}")
+    public String update(@PathVariable("id") int id,@ModelAttribute("pizza") Pizza formPizzaData, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "pizzas/edit";
+        }
+
+        Pizza pizzaToUpdate = pizzaRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid pizza Id:" + id));
+
+        pizzaToUpdate.setName(formPizzaData.getName());
+        pizzaToUpdate.setDescription(formPizzaData.getDescription());
+        pizzaToUpdate.setPrice(formPizzaData.getPrice());
+        pizzaRepository.save(pizzaToUpdate);
+
+        return "redirect:/pizzas";
+    }
+
+    @DeleteMapping("delete/{id}")
+    public String delete(@PathVariable int id){
+        pizzaRepository.deleteById(id);
         return "redirect:/pizzas";
     }
 

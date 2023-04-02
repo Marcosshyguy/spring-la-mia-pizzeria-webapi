@@ -11,6 +11,8 @@ public class Pizza {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pizzaId;
+    @NotBlank(message = "Campo vuoto")
+    @Size(min = 5, max = 20, message = "")
     private String name;
 
     @Column(columnDefinition = "TEXT")
