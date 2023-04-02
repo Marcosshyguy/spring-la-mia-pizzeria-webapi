@@ -12,7 +12,7 @@ public class Pizza {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pizzaId;
     @NotBlank(message = "Campo vuoto")
-    @Size(min = 5, max = 20, message = "")
+    @Size(min = 5, max = 20, message = "Il nome deve essere maggiore di 5 carattteri e minore di 20")
     private String name;
 
     @Column(columnDefinition = "TEXT")
