@@ -76,18 +76,17 @@ public class PizzaController{
     }
 
     @PutMapping("/edit/{id}")
-    public String update(@PathVariable("id") int id,@ModelAttribute("pizza") Pizza formPizzaData, BindingResult bindingResult){
+    public String update( @PathVariable("id") int id, @Valid @ModelAttribute("pizza") Pizza formPizzaData, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return "pizzas/edit";
         }
+            Pizza pizzaToUpdate = pizzaRepository.findById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid pizza Id:" + id));
 
-        Pizza pizzaToUpdate = pizzaRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid pizza Id:" + id));
-
-        pizzaToUpdate.setName(formPizzaData.getName());
-        pizzaToUpdate.setDescription(formPizzaData.getDescription());
-        pizzaToUpdate.setPrice(formPizzaData.getPrice());
-        pizzaRepository.save(pizzaToUpdate);
+            pizzaToUpdate.setName(formPizzaData.getName());
+            pizzaToUpdate.setDescription(formPizzaData.getDescription());
+            pizzaToUpdate.setPrice(formPizzaData.getPrice());
+            pizzaRepository.save(pizzaToUpdate);
 
         return "redirect:/pizzas";
     }
