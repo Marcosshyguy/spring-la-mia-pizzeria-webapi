@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -10,7 +10,7 @@
     <title>Pizza per tutti</title>
 </head>
 <body>
-<nav th:replace="~{pizzas/fragment :: navbar('pizzas', '', false)}"></nav>
+<nav th:replace="~{fragments/navbar :: navbar('pizzas', '', false)}"></nav>
 <div class="container">
     <!--<th:block th:unless="${#strings.isEmpty(pizza.name)}">-->
     <h2 th:text="|Ecco una bella ${pizza.name}|" class="text-center"></h2>
@@ -25,10 +25,12 @@
         <!--   premium deals   -->
         <h3>
             Offerte speciali
-<!--            <a th:href="@{/premium/create}"> Aggiungi offerta</a>-->
+            <a th:href="@{/premium/create(pizzaId=${pizza.pizzaId})}"> Aggiungi offerta</a>
         </h3>
         <div th:if="${pizza.premiumDeals}">
-            <p th:each="deal : ${pizza.premiumDeals}" th:text="${deal.title}"></p>
+            <th:block th:each="deal : ${pizza.premiumDeals}">
+                <a th:href="@{|/premium/edit/${deal.id}|}"><p  th:text="${deal.title}"></p></a>
+            </th:block>
         </div>
         <div th:if="${pizza.premiumDeals.isEmpty()}"><p>Niente offerte speciali per il momemnto</p></div>
         <a class="btn btn-secondary" th:href="@{/pizzas}">Indietro</a>

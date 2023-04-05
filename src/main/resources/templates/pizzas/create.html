@@ -5,11 +5,11 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <th:block th:replace="~{pizzas/fragment :: style}"></th:block>
+    <th:block th:replace="~{fragments/navbar :: style}"></th:block>
     <title>Pizza per tutti</title>
 </head>
 <body>
-<nav th:replace="~{pizzas/fragment :: navbar('pizzas', '', false)}"></nav>
+<nav th:replace="~{fragments/navbar :: navbar('pizzas', '', false)}"></nav>
 
 <form id="pizza-form" method="post" th:object="${pizza}" th:action="@{/pizzas/create}">
     <!--       error   -->

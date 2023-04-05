@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <th:block th:replace="~{fragments/navbar :: style}"></th:block>
+  <title>Pizza per Tutti</title>
+</head>
+<body>
+<nav th:replace="~{fragments/navbar :: navbar('pizzas', '', false)}"></nav>
+
+<h2>Stai aggiornando una promozione per <span th:text="${deal.pizza.name}"></span></h2>
+
+<form id="premium-deal-edit-form" method="post" th:object="${deal}" th:action="@{/premium/edit/{id} (id = ${deal.id})}">
+  <input type="hidden" th:field="*{pizza}">
+  <!--       error   -->
+  <!--    <ul>-->
+  <!--        <li th:each="err : ${#fields.globalErrors()}">[[${err}]]</li>-->
+  <!--    </ul>-->
+  <!--  title  -->
+  <label class="form-label" for="title">Nome promozione</label>
+  <input type="text" id="title" class="form-control" th:field="*{title}">
+  <!--    <div th:if="${#fields.hasErrors('name')}">-->
+  <!--        <ul>-->
+  <!--            <li th:each="err : ${#fields.errors('name')}">[[${err}]]</li>-->
+  <!--        </ul>-->
+  <!--    </div>-->
+
+  <!--  starting date  -->
+  <label class="form-label" for="startig-date">Data di inizio</label>
+  <span>[[*{startingDate}]]</span>
+  <input type="date" id="startig-date" class="form-control" th:field="*{startingDate}">
+  <!--    <div th:if="${#fields.hasErrors('name')}">-->
+  <!--        <ul>-->
+  <!--            <li th:each="err : ${#fields.errors('name')}">[[${err}]]</li>-->
+  <!--        </ul>-->
+  <!--    </div>-->
+
+  <!--  expire date  -->
+  <label class="form-label" for="expire-date">Data di scadenza</label>
+  <input type="date" id="expire-date" class="form-control" th:field="*{expiringDate}">
+  <!--    <div th:if="${#fields.hasErrors('name')}">-->
+  <!--        <ul>-->
+  <!--            <li th:each="err : ${#fields.errors('name')}">[[${err}]]</li>-->
+  <!--        </ul>-->
+  <!--    </div>-->
+
+  <button type="submit">Submit</button>
+</form>
+</body>
+</html>
