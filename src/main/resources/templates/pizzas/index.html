@@ -13,7 +13,7 @@
 <body>
 <nav th:replace="~{pizzas/fragment :: navbar('pizzas', ${keyword}, true)}"></nav>
 <div class="container">
-    <a th:href="@{pizzas/create}" class="btn btn-success mt-3">Aggiungi +</a>
+    <a th:href="@{pizzas/create}" class="btn btn-success mt-3">Aggiungi  <i class="fa-solid fa-pizza-slice fa-spin fa-spin-reverse"></i></a>
     <table th:if="${pizzas.size() > 0}" class="table table-dark table-striped mt-3">
         <thead>
         <tr>
@@ -31,10 +31,10 @@
             <!-- actions -->
             <td>
                 <a th:href="@{|pizzas/${pizza.pizzaId}|}" class="btn btn-success align-middle"><i class="fa-solid fa-pizza-slice"></i></a>
-                <a th:href="@{|pizzas/edit/${pizza.pizzaId}|}" class="btn btn-secondary align-middle"><i class="fa-solid fa-pizza-slice"></i></a>
+                <a th:href="@{|pizzas/edit/${pizza.pizzaId}|}" class="btn btn-secondary align-middle"><i class="fa-solid fa-pen"></i></a>
                 <!-- add delete button-->
                 <form id="delete-pizza" th:method="delete" th:action="@{/pizzas/delete/{id}(id=${pizza.pizzaId})}" class="d-inline">
-                    <button type="submit" th:value="${pizza.pizzaId}" class="btn btn-danger align-middle"><i class="fa-solid fa-pizza-slice"></i></button>
+                    <button type="submit" th:value="${pizza.pizzaId}" class="btn btn-danger align-middle"><i class="fa-solid fa-trash"></i></button>
                 </form>
             </td>
         </tr>

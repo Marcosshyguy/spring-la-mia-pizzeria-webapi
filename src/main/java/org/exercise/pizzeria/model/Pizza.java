@@ -4,10 +4,13 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "pizzas")
 public class Pizza {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int pizzaId;
@@ -19,10 +22,13 @@ public class Pizza {
     @NotBlank(message = "Campo vuoto")
     private String description;
     @NotNull(message = "Campo vuoto")
+//    @Min(min=5 , message = "La pizza deve venire più di 5$")
     private double price;
     @NotBlank(message = "Campo vuoto")
     @Column(columnDefinition = "TEXT")
     private String image;
+    @OneToMany(mappedBy = "pizza")
+    private List<Costumer> costumers;
 
     public String getImage() {
         return image;
@@ -63,4 +69,5 @@ public class Pizza {
     public void setPrice(double price) {
         this.price = price;
     }
+
 }

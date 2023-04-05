@@ -3,7 +3,6 @@ package org.exercise.pizzeria.controller;
 import jakarta.validation.Valid;
 import org.exercise.pizzeria.model.Pizza;
 import org.exercise.pizzeria.repository.PizzaRepository;
-import org.exercise.pizzeria.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;

@@ -21,7 +21,15 @@
 
         <p>Questa pizza in media viene [[${pizza.price}]]$</p>
         <p>[[${pizza.description}]]</p>
-<a class="btn btn-secondary" th:href="@{/pizzas}">Indietro</a>
+<!--    costumer   -->
+<!--        <h3>-->
+<!--            Costumers-->
+<!--        </h3>-->
+<!--        <div th:if="pizza.costumers">-->
+<!--            <p th:each="costumer : ${pizza.costumers}" th:text="costumer.firstName"></p>-->
+<!--        </div>-->
+        <a class="btn btn-secondary" th:href="@{/pizzas}">Indietro</a>
 </div>
+
 </body>
 </html>
