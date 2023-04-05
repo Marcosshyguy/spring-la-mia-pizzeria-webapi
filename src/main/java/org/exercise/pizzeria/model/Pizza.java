@@ -3,7 +3,6 @@ package org.exercise.pizzeria.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -28,7 +27,7 @@ public class Pizza {
     @Column(columnDefinition = "TEXT")
     private String image;
     @OneToMany(mappedBy = "pizza")
-    private List<Costumer> costumers;
+    private List<PremiumDeal> premiumDeals;
 
     public String getImage() {
         return image;
@@ -70,4 +69,11 @@ public class Pizza {
         this.price = price;
     }
 
+    public List<PremiumDeal> getPremiumDeals() {
+        return premiumDeals;
+    }
+
+    public void setPremiumDeals(List<PremiumDeal> premiumDeals) {
+        this.premiumDeals = premiumDeals;
+    }
 }

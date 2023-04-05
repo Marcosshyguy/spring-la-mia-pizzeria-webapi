@@ -21,13 +21,16 @@
 
         <p>Questa pizza in media viene [[${pizza.price}]]$</p>
         <p>[[${pizza.description}]]</p>
-<!--    costumer   -->
-<!--        <h3>-->
-<!--            Costumers-->
-<!--        </h3>-->
-<!--        <div th:if="pizza.costumers">-->
-<!--            <p th:each="costumer : ${pizza.costumers}" th:text="costumer.firstName"></p>-->
-<!--        </div>-->
+
+        <!--   premium deals   -->
+        <h3>
+            Offerte speciali
+<!--            <a th:href="@{/premium/create}"> Aggiungi offerta</a>-->
+        </h3>
+        <div th:if="${pizza.premiumDeals}">
+            <p th:each="deal : ${pizza.premiumDeals}" th:text="${deal.title}"></p>
+        </div>
+        <div th:if="${pizza.premiumDeals.isEmpty()}"><p>Niente offerte speciali per il momemnto</p></div>
         <a class="btn btn-secondary" th:href="@{/pizzas}">Indietro</a>
 </div>
 
