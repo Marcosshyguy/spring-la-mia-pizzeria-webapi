@@ -65,23 +65,31 @@ public class PizzaController{
 
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("pizza") Pizza formPizzaData, BindingResult bindingResult, Model model){
+        List<Ingredient> ingredienteList = ingredientRepository.findAll();
+
         if(bindingResult.hasErrors()){
+          model.addAttribute("ingredienteList", ingredienteList);
             return "/pizzas/create";
         }
+
         pizzaRepository.save(formPizzaData);
         return "redirect:/pizzas";
     }
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") int id, Model model) {
+        List<Ingredient> ingredienteList = ingredientRepository.findAll();
         Pizza result = pizzaRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Id della pizza non valido:" + id));
         model.addAttribute("pizza", result);
+        model.addAttribute("ingredienteList", ingredienteList);
         return "pizzas/edit";
     }
 
     @PutMapping("/edit/{id}")
-    public String update( @PathVariable("id") int id, @Valid @ModelAttribute("pizza") Pizza formPizzaData, BindingResult bindingResult){
+    public String update( @PathVariable("id") int id, @Valid @ModelAttribute("pizza") Pizza formPizzaData, BindingResult bindingResult, Model model){
+        List<Ingredient> ingredienteList = ingredientRepository.findAll();
         if(bindingResult.hasErrors()){
+            model.addAttribute("ingredienteList", ingredienteList);
             return "pizzas/edit";
         }
             Pizza pizzaToUpdate = pizzaRepository.findById(id)
@@ -90,6 +98,7 @@ public class PizzaController{
             pizzaToUpdate.setName(formPizzaData.getName());
             pizzaToUpdate.setDescription(formPizzaData.getDescription());
             pizzaToUpdate.setPrice(formPizzaData.getPrice());
+            pizzaToUpdate.setIngredientSet(formPizzaData.getIngredientSet());
             pizzaRepository.save(pizzaToUpdate);
 
         return "redirect:/pizzas";
