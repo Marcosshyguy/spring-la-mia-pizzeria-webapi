@@ -23,7 +23,7 @@
     <!--   ingredients   -->
     <h3>Ingredienti</h3>
     <ul th:unless="${pizza.ingredientSet.size() == 0}">
-        <li th:each="ingredient : ${pizza.ingredientSet}" th:text="${ingredient.name}"></li>
+        <li th:each="ingredient : ${pizza.getSortedIngredients()}" th:text="${ingredient.name}"></li>
     </ul>
     <p th:if="${pizza.ingredientSet.size() == 0}">Non sono stati inseriti ingredienti</p>
 

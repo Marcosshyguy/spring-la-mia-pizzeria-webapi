@@ -9,7 +9,7 @@
     <title>Pizza per tutti</title>
 </head>
 <body>
-<nav th:replace="~{fragments/navbar :: navbar('pizzas', '', false)}"></nav>
+<nav th:replace="~{fragments/navbar :: navbar('addPizzas', '', false)}"></nav>
 
 <form id="pizza-form" method="post" th:object="${pizza}" th:action="@{/pizzas/create}">
     <!--       error   -->

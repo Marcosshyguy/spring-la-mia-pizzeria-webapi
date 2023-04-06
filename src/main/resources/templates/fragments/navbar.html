@@ -23,10 +23,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/pizzas}">Home</a>
+                    <a class="nav-link" th:classappend="${current == 'pizzas'} ? 'active' : ''" aria-current="page" th:href="@{/pizzas}">Pizze</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/pizzas/create}">Aggiungi pizza</a>
+                    <a class="nav-link" th:classappend="${current == 'addPizzas'} ? 'active' : ''" th:href="@{/pizzas/create}">Aggiungi pizza</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${current == 'ingredients'} ? 'active' : ''" th:href="@{/ingredients}">Ingredienti</a>
                 </li>
             </ul>
             <form th:if="${showsearch == true}" class="d-flex" role="search" method="get" th:action="@{/pizzas}" >
