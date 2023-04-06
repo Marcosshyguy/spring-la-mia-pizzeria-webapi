@@ -92,6 +92,21 @@ public class Pizza {
         this.ingredientSet = ingredientSet;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Pizza pizza = (Pizza) o;
+
+        return ingredientSet.equals(pizza.ingredientSet);
+    }
+
+    @Override
+    public int hashCode() {
+        return ingredientSet.hashCode();
+    }
+
     public boolean hasDeal(){
        boolean valid;
         if (premiumDeals.size() == 0 ? false : true) valid = true;
