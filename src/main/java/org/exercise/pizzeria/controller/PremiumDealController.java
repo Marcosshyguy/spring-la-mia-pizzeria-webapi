@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
 
@@ -47,8 +48,9 @@ public class PremiumDealController {
         model.addAttribute("deal", result);
         return "premium-deals/edit";
     }
-    @PostMapping("/edit/{id}")
-    public String update( @PathVariable("id") int id, @Valid @ModelAttribute("deal") PremiumDeal dealFormUpdatedData, BindingResult bindingResult){
+    @PutMapping("/edit/{id}")
+    public String update(@PathVariable("id") int id, @Valid @ModelAttribute("deal") PremiumDeal dealFormUpdatedData,
+                         BindingResult bindingResult, RedirectAttributes redirectAttributes){
         if(bindingResult.hasErrors()){
             return "premium/edit";
         }
@@ -62,5 +64,12 @@ public class PremiumDealController {
         premiumDealRepository.save(dealToUpdate);
 
         return "redirect:/pizzas/" + dealToUpdate.getPizza().getPizzaId();
+    }
+
+    @DeleteMapping("delete/{id}")
+    public String delete(@PathVariable int id){
+        premiumDealRepository.deleteById(id);
+        return "redirect:/pizzas";
+
     }
 }

@@ -5,8 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link th:rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <th:block th:replace="~{fragments/navbar :: style}"></th:block>
     <title>Pizza per tutti</title>
 </head>
 <body>
@@ -19,21 +18,29 @@
         <img th:src="@{${pizza.image}}" class="rounded mx-auto d-block" >
     </div>
 
-        <p>Questa pizza in media viene [[${pizza.price}]]$</p>
-        <p>[[${pizza.description}]]</p>
+    <p>Questa pizza in media viene [[${pizza.price}]]$</p>
+    <p>[[${pizza.description}]]</p>
+    <!--   ingredients   -->
+    <h3>Ingredienti</h3>
+    <ul th:unless="${pizza.ingredientSet.size() == 0}">
+        <li th:each="ingredient : ${pizza.ingredientSet}" th:text="${ingredient.name}"></li>
+    </ul>
+    <p th:if="${pizza.ingredientSet.size() == 0}">Non sono stati inseriti ingredienti</p>
 
-        <!--   premium deals   -->
-        <h3>
-            Offerte speciali
-            <a th:href="@{/premium/create(pizzaId=${pizza.pizzaId})}"> Aggiungi offerta</a>
-        </h3>
-        <div th:if="${pizza.premiumDeals}">
-            <th:block th:each="deal : ${pizza.premiumDeals}">
-                <a th:href="@{|/premium/edit/${deal.id}|}"><p  th:text="${deal.title}"></p></a>
-            </th:block>
-        </div>
-        <div th:if="${pizza.premiumDeals.isEmpty()}"><p>Niente offerte speciali per il momemnto</p></div>
-        <a class="btn btn-secondary" th:href="@{/pizzas}">Indietro</a>
+    <!--   premium deals   -->
+    <h3>Offerte speciali</h3>
+    <a th:href="@{/premium/create(pizzaId=${pizza.pizzaId})}" class="btn btn-secondary"> Aggiungi offerta</a>
+    <div th:if="${pizza.premiumDeals}">
+        <th:block th:each="deal : ${pizza.premiumDeals}">
+            <span  th:text="${deal.title}" class="me-3"></span>
+            <a th:href="@{|/premium/edit/${deal.id}|}" class="btn btn-primary"><i class="fa-solid fa-pen"></i></a>
+            <form id="delete-premium-deal" th:method="delete" th:action="@{/premium/delete/{id}(id=${deal.id})}" class="d-inline">
+                <button type="submit" th:value="${deal.id}" class="btn btn-danger align-middle"><i class="fa-solid fa-trash"></i></button>
+            </form>
+        </th:block>
+    </div>
+    <div th:if="${pizza.premiumDeals.isEmpty()}"><p>Niente offerte speciali per il momento</p></div>
+    <a class="btn btn-secondary mt-3" th:href="@{/pizzas}">Indietro</a>
 </div>
 
 </body>

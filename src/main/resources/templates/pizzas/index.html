@@ -25,7 +25,10 @@
         </thead>
         <tbody class="table-group-divider">
         <tr th:each="pizza : ${pizzas}">
-            <td th:text="${pizza.name}" class="align-middle"></td>
+            <td class="align-middle">
+                <span th:if="${pizza.hasDeal()}"><i class="fa-solid fa-dollar-sign"></i></span>
+                [[${pizza.name}]]
+            </td>
             <td th:text="|${pizza.price}$|" class="align-middle"></td>
             <td th:text="${pizza.description}" class="align-middle"></td>
             <!-- actions -->

@@ -10,7 +10,7 @@
 
 <h2>Stai aggiornando una promozione per <span th:text="${deal.pizza.name}"></span></h2>
 
-<form id="premium-deal-edit-form" method="post" th:object="${deal}" th:action="@{/premium/edit/{id} (id = ${deal.id})}">
+<form id="premium-deal-edit-form" th:method="put" th:object="${deal}" th:action="@{/premium/edit/{id} (id = ${deal.id})}">
   <input type="hidden" th:field="*{pizza}">
   <!--       error   -->
   <!--    <ul>-->

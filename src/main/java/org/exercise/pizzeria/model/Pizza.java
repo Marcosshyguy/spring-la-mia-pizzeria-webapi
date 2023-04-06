@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "pizzas")
@@ -26,8 +27,14 @@ public class Pizza {
     @NotBlank(message = "Campo vuoto")
     @Column(columnDefinition = "TEXT")
     private String image;
+//    relation between pizza entity and PremiumDeal entity
     @OneToMany(mappedBy = "pizza")
     private List<PremiumDeal> premiumDeals;
+
+//    relation between pizza entity and ingredients entity
+    @ManyToMany
+    @JoinTable(name = "pizza_ingredient" , joinColumns = @JoinColumn(name = "pizza_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+    private Set<Ingredient> ingredientSet;
 
     public String getImage() {
         return image;
@@ -75,5 +82,20 @@ public class Pizza {
 
     public void setPremiumDeals(List<PremiumDeal> premiumDeals) {
         this.premiumDeals = premiumDeals;
+    }
+
+    public Set<Ingredient> getIngredientSet() {
+        return ingredientSet;
+    }
+
+    public void setIngredientSet(Set<Ingredient> ingredientSet) {
+        this.ingredientSet = ingredientSet;
+    }
+
+    public boolean hasDeal(){
+       boolean valid;
+        if (premiumDeals.size() == 0 ? false : true) valid = true;
+        else valid = false;
+        return valid;
     }
 }

@@ -1,7 +1,9 @@
 package org.exercise.pizzeria.controller;
 
 import jakarta.validation.Valid;
+import org.exercise.pizzeria.model.Ingredient;
 import org.exercise.pizzeria.model.Pizza;
+import org.exercise.pizzeria.repository.IngredientRepository;
 import org.exercise.pizzeria.repository.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -12,7 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +22,8 @@ import java.util.Optional;
 public class PizzaController{
     @Autowired
     PizzaRepository pizzaRepository;
+    @Autowired
+    IngredientRepository ingredientRepository;
 
 //    @Autowired
 //    PizzaService pizzaService;
@@ -48,13 +51,15 @@ public class PizzaController{
             model.addAttribute("pizza", result.get());
             return "/pizzas/show";
         }else{
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza with id " + id + " not found");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Pizza con id " + id + " non trovata");
         }
     }
 
     @GetMapping("/create")
     public String create(Model model){
+        List<Ingredient> ingredienteList = ingredientRepository.findAll();
         model.addAttribute("pizza", new Pizza());
+        model.addAttribute("ingredienteList", ingredienteList);
         return "/pizzas/create";
     }
 
@@ -69,7 +74,7 @@ public class PizzaController{
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") int id, Model model) {
-        Pizza result = pizzaRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid pizza Id:" + id));
+        Pizza result = pizzaRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Id della pizza non valido:" + id));
         model.addAttribute("pizza", result);
         return "pizzas/edit";
     }
