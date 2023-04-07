@@ -13,27 +13,45 @@
 <div class="container">
     <div class="row">
         <div class="col-6">
-            <h4>La lista degli ingredienti delle nostre pizze</h4>
+            <h4 class="d-inline ">La lista degli ingredienti delle nostre pizze</h4>
+            <a th:if="${ingredientToUpdate}" th:href="@{/ingredients}" class="btn btn-success"><i class="fa-solid fa-plus"></i></a>
+
             <table class="table">
                 <tbody>
                 <tr th:each="ingredient : ${ingredients}">
-                    <td th:text="${ingredient.name}" class="text-center"></td>
+                    <td class="text-center">
+                        <p th:text="${ingredient.name}" class="align-middle"></p>
+                    </td>
+                    <td class="text-center">
+                        <a th:href="@{/ingredients(id=${ingredient.id})}" class="btn btn-secondary align-middle"><i class="fa-solid fa-pen"></i></a>
+                        <a   class="btn btn-danger align-middle"><i class="fa-solid fa-trash"></i></a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
         </div>
-
-        <div class="col-6 text-center">
+        <!--create form-->
+        <div class="col-6 text-center" th:if="${emptyIngredient}">
             <h4>Aggiungi ingrediente</h4>
-            <form id="pizza-edit" method="post" th:object="${ingredient}">
+            <form id="ingredient-create" method="post" th:object="${emptyIngredient}" th:action="@{ingredients/create}">
                 <!--  inputs  -->
                 <!--  name  -->
-                <label class="form-label" for="name">Nome</label>
-<!--                <input type="text" id="name" class="form-control" th:field="*{name}" >-->
-                <button type="submit">Premi e spera</button>
+                <label class="form-label" for="name" >Nome</label>
+                <input type="text" id="name" class="form-control" th:field="*{name}" >
+                <button type="submit" class="btn btn-danger">Aggiungi</button>
             </form>
         </div>
-
+        <!--edit form-->
+        <div class="col-6 text-center" th:if="${ingredientToUpdate}">
+            <h4>Aggiorna ingrediente</h4>
+            <form id="ingredient-edit" th:object="${ingredientToUpdate}"  th:action="@{|/ingredients/update/${ingredientToUpdate.id}|}" method="POST">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nome ingrediente:</label>
+                    <input type="text" class="form-control" id="name" aria-describedby="name" th:field="*{name}" th:errorClass="is-invalid">
+                </div>
+                <button class="btn btn-danger" type="submit">Aggiorna</button>
+            </form>
+        </div>
     </div>
 </div>
 </body>

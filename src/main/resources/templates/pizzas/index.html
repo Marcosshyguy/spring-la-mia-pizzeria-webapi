@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -34,7 +34,8 @@
             <!-- actions -->
             <td>
                 <a th:href="@{|pizzas/${pizza.pizzaId}|}" class="btn btn-success align-middle"><i class="fa-solid fa-pizza-slice"></i></a>
-                <a th:href="@{|pizzas/edit/${pizza.pizzaId}|}" class="btn btn-secondary align-middle"><i class="fa-solid fa-pen"></i></a>
+                <a  th:href="@{|pizzas/edit/${pizza.pizzaId}|}" class="btn btn-secondary align-middle"><i class="fa-solid fa-pen"></i></a>
+<!--                <a sec:authorize="hasAuthority('Admin')"  th:href="@{|pizzas/edit/${pizza.pizzaId}|}" class="btn btn-secondary align-middle"><i class="fa-solid fa-pen"></i></a>-->
                 <!-- add delete button-->
                 <form id="delete-pizza" th:method="delete" th:action="@{/pizzas/delete/{id}(id=${pizza.pizzaId})}" class="d-inline">
                     <button type="submit" th:value="${pizza.pizzaId}" class="btn btn-danger align-middle"><i class="fa-solid fa-trash"></i></button>
