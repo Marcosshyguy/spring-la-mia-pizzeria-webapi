@@ -1,5 +1,6 @@
 package org.exercise.pizzeria.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -16,6 +17,7 @@ public class PremiumDeal {
     private LocalDate expiringDate;
     private String title;
 
+    @JsonIgnore
     @ManyToOne
     @NotNull
     private Pizza pizza;

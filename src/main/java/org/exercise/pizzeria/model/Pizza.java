@@ -30,7 +30,7 @@ public class Pizza {
     @Column(columnDefinition = "TEXT")
     private String image;
 //    relation between pizza entity and PremiumDeal entity
-    @JsonIgnore
+
     @OneToMany(mappedBy = "pizza")
     private List<PremiumDeal> premiumDeals;
 
@@ -104,6 +104,7 @@ public class Pizza {
         return valid;
     }
 
+    @JsonIgnore
     public List<Ingredient> getSortedIngredients(){
        return ingredientSet.stream().sorted((a,b) -> {
             return a.getName().compareTo(b.getName());
