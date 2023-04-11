@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -29,12 +29,12 @@
 
     <!--   premium deals   -->
     <h3>Offerte speciali</h3>
-    <a th:href="@{/premium/create(pizzaId=${pizza.pizzaId})}" class="btn btn-secondary"> Aggiungi offerta</a>
+    <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/premium/create(pizzaId=${pizza.pizzaId})}" class="btn btn-secondary"> Aggiungi offerta</a>
     <div th:if="${pizza.premiumDeals}">
         <th:block th:each="deal : ${pizza.premiumDeals}">
             <span  th:text="${deal.title}" class="me-3"></span>
-            <a th:href="@{|/premium/edit/${deal.id}|}" class="btn btn-primary"><i class="fa-solid fa-pen"></i></a>
-            <form id="delete-premium-deal" th:method="delete" th:action="@{/premium/delete/{id}(id=${deal.id})}" class="d-inline">
+            <a sec:authorize="hasAuthority('ADMIN')" th:href="@{|/premium/edit/${deal.id}|}" class="btn btn-primary"><i class="fa-solid fa-pen"></i></a>
+            <form sec:authorize="hasAuthority('ADMIN')" id="delete-premium-deal" th:method="delete" th:action="@{/premium/delete/{id}(id=${deal.id})}" class="d-inline">
                 <button type="submit" th:value="${deal.id}" class="btn btn-danger align-middle"><i class="fa-solid fa-trash"></i></button>
             </form>
         </th:block>

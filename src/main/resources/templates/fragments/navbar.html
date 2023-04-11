@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <!--style and bootstrap style-->
 <th:block th:fragment="style">
@@ -25,10 +25,10 @@
                 <li class="nav-item">
                     <a class="nav-link" th:classappend="${current == 'pizzas'} ? 'active' : ''" aria-current="page" th:href="@{/pizzas}">Pizze</a>
                 </li>
-                <li class="nav-item">
+                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
                     <a class="nav-link" th:classappend="${current == 'addPizzas'} ? 'active' : ''" th:href="@{/pizzas/create}">Aggiungi pizza</a>
                 </li>
-                <li class="nav-item">
+                <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
                     <a class="nav-link" th:classappend="${current == 'ingredients'} ? 'active' : ''" th:href="@{/ingredients}">Ingredienti</a>
                 </li>
             </ul>
@@ -37,6 +37,11 @@
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" th:href="@{/logout}"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </li>
+        </ul>
     </div>
 </nav>
 </html>

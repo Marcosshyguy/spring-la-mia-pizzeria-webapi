@@ -24,5 +24,22 @@ INSERT INTO db_pizzeria.pizza_ingredient (pizza_id, ingredient_id) VALUES(4, 1);
 INSERT INTO db_pizzeria.pizza_ingredient (pizza_id, ingredient_id) VALUES(4, 2);
 INSERT INTO db_pizzeria.pizza_ingredient (pizza_id, ingredient_id) VALUES(4, 3);
 INSERT INTO db_pizzeria.pizza_ingredient (pizza_id, ingredient_id) VALUES(4, 4);
+--Generating fake users and roles and their relationship
+INSERT INTO db_pizzeria.roles (name) VALUES('ADMIN');
+INSERT INTO db_pizzeria.roles (name) VALUES('USER');
+
+INSERT INTO db_pizzeria.users (email, password, username) VALUES('themarcoferrari@yahoo.it', '{noop}belladonna', 'Minkiopazzo94');
+INSERT INTO db_pizzeria.users (email, password, username) VALUES('osvaldoterco@gmail.com', '{noop}languido', 'crazy user :-)');
+INSERT INTO db_pizzeria.users (email, password, username) VALUES('bellabella@gmail.com', '{noop}abcde', 'Sganghero80');
+
+INSERT INTO db_pizzeria.user_role (user_id, role_id) VALUES(2, 1);
+INSERT INTO db_pizzeria.user_role (user_id, role_id) VALUES(1, 2);
+INSERT INTO db_pizzeria.user_role (user_id, role_id) VALUES(3, 1);
+
+
+
+
+
+
 
 

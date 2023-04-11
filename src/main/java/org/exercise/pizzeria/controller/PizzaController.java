@@ -25,8 +25,6 @@ public class PizzaController{
     @Autowired
     IngredientRepository ingredientRepository;
 
-//    @Autowired
-//    PizzaService pizzaService;
     @GetMapping
     public String index(Model model, @RequestParam(name = "type") Optional<String> keyword){
 

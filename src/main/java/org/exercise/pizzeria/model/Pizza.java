@@ -1,5 +1,6 @@
 package org.exercise.pizzeria.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -29,6 +30,7 @@ public class Pizza {
     @Column(columnDefinition = "TEXT")
     private String image;
 //    relation between pizza entity and PremiumDeal entity
+    @JsonIgnore
     @OneToMany(mappedBy = "pizza")
     private List<PremiumDeal> premiumDeals;
 

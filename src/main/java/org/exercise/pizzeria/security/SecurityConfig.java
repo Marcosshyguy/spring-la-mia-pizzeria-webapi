@@ -1,5 +1,7 @@
 package org.exercise.pizzeria.security;
 
+
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -22,6 +24,33 @@ public class SecurityConfig {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
+
+    /*
+    home "/" USER ADMIN
+    create edit delete ADMIN
+    show "/pizzas/{id}" ADMIN USER
+    premium-deal "/borrowing/tutti/ Admin
+    categories "/categories/tutti" ADMIN
+    * */
+
+//    questo serve per far funzionare il css
+//    .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+    @Bean
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+        http.authorizeHttpRequests()
+                .requestMatchers("/pizzas/create", "/pizzas/edit/**").hasAuthority("ADMIN")
+                .requestMatchers("/","/pizzas", "/pizzas/{id}").hasAnyAuthority("USER", "ADMIN")
+                .requestMatchers("/ingredients", "/ingredients/**").hasAuthority("ADMIN")
+                .requestMatchers("/premium", "/premium/**").hasAuthority("ADMIN")
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).hasAnyAuthority("USER", "ADMIN")
+                .and().formLogin().defaultSuccessUrl("/pizzas", true)
+                .and().logout()
+                .and().exceptionHandling();
+        http.csrf().disable();
+                return http.build();
+    }
+
+
     @Bean
     DaoAuthenticationProvider daoAuthenticationProvider(){
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -31,22 +60,5 @@ public class SecurityConfig {
         provider.setPasswordEncoder(passwordEncoder());
 
         return  provider;
-    }
-
-    /*
-    home "/" USER ADMIN
-    create edit delete ADMIN
-    show "/pizzas/{id}" ADMIN USER
-    premium-deal "/borrowing/tutti/ Admin
-    categories "/categories/tutti" ADMIN
-    * */
-    @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        http.authorizeHttpRequests().requestMatchers("/ingredients", "/ingredients/**").hasAuthority("Admin")
-                .requestMatchers("/premium/**").hasAuthority("admin")
-                .requestMatchers("/pizzas", "pizzas/**").hasAuthority("User")
-//                .requestMatchers(HttpMethod.POST,HttpMethod.PUT,HttpMethod.DELETE , "").hasAuthority("Admin")
-                .and().formLogin().and().logout().and().exceptionHandling();
-                return http.build();
     }
 }

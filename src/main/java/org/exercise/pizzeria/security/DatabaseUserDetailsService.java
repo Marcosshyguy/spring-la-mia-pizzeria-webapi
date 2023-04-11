@@ -17,11 +17,12 @@ public class DatabaseUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByUsername(username);
+
                 if(user.isPresent()){
                     return new DatabaseUserDetails(user.get());
                 }
                 else{
-                    return  null;
+                    throw new UsernameNotFoundException(username + " not found");
                 }
 
     }
