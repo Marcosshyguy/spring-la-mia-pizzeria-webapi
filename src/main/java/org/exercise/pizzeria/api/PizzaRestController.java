@@ -10,6 +10,7 @@ import org.exercise.pizzeria.repository.PremiumDealRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -90,9 +91,9 @@ public class PizzaRestController {
         return pizzaToUpdate;
     }
 
-//    @DeleteMapping("/{id}")
-//    public void delete(@PathVariable("id") Integer id){
-//        pizzaRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid pizza Id: " + id));
-//
-//    }
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") Integer id){
+        pizzaRepository.findById(id).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        pizzaRepository.deleteById(id);
+    }
 }

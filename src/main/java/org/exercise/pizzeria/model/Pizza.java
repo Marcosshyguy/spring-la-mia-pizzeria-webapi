@@ -3,6 +3,7 @@ package org.exercise.pizzeria.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 import java.util.Set;
@@ -31,11 +32,12 @@ public class Pizza {
     private String image;
 //    relation between pizza entity and PremiumDeal entity
 
-    @OneToMany(mappedBy = "pizza")
+
+    @OneToMany(mappedBy = "pizza", cascade = CascadeType.REMOVE)
     private List<PremiumDeal> premiumDeals;
 
 //    relation between pizza entity and ingredients entity
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(name = "pizza_ingredient" , joinColumns = @JoinColumn(name = "pizza_id"), inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
     private Set<Ingredient> ingredientSet;
 
